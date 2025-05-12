@@ -1,0 +1,337 @@
+/* ========================================
+   Importing Google Fonts
+======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Dangrek&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Dangrek&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moul&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+/* ========================================
+   Global Styles
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Dangrek", sans-serif;
+}
+
+/* ========================================
+   Body Styling
+======================================== */
+body {
+    display: flex;
+    padding: 10px;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: whitesmoke; 
+    color: white;
+}
+
+/* ========================================
+   Container Styling
+======================================== */
+.container {
+    width: 900px;
+    padding: 40px;
+    background: rgb(158, 32, 32);
+    border-radius: 15px;
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.2);
+    border: 10px solid rgb(34, 34, 194);
+}
+
+.container.disable .editor-panel,
+.container.disable .controls .reset-filter,
+.container.disable .controls .save-img,
+.container.disable .click-to-remove-bg,
+.container.disable .upload-background-to-photo {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ========================================
+   Heading Styling
+======================================== */
+.container h2 {
+    margin-top: -5px;
+    font-size: 30px;
+    font-weight: 300;
+    color: whitesmoke;
+    text-align: center;
+    font-family: "Moul", serif;
+    letter-spacing: 1px;
+}
+
+.container h2 span {
+    font-size: 30px;
+    font-family: "Merriweather", serif;
+    font-weight: 500;
+}
+
+/* ========================================
+   Wrapper Styling
+======================================== */
+.container .wrapper {
+    display: flex;
+    margin: 25px 0;
+    min-height: 350px;
+}
+
+/* ========================================
+   Editor Panel Styling
+======================================== */
+.wrapper .editor-panel {
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    border: 4px solid white;
+    background: rgb(2, 2, 78);
+}
+
+.editor-panel .title {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 14px;
+    color: white;
+}
+
+.editor-panel .options,
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.editor-panel button {
+    outline: none;
+    height: 45px;
+    font-size: 15px;
+    color: white;
+    background: rgb(2, 2, 78);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 2px solid white;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.editor-panel .filter button {
+    width: calc(50% - 5px);
+}
+
+.editor-panel button:hover {
+    background: white;
+    color: #3A5A7C;
+    transform: scale(1.05);
+}
+
+.filter button.active {
+    color: white;
+    border-color: white;
+    background: #3A5A7C;
+}
+
+.filter .slider {
+    margin-top: 14px;
+}
+
+.filter .slider .filter-info {
+    display: flex;
+    color: white;
+    font-size: 16px;
+    justify-content: space-between;
+}
+
+.filter .slider input {
+    width: 100%;
+    height: 6px;
+    accent-color: white;
+}
+
+/* ========================================
+   Rotate Options Styling
+======================================== */
+.editor-panel .rotate {
+    margin-top: 20px;
+}
+
+.editor-panel .rotate button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 4 - 5px);
+}
+
+.rotate .options button:nth-child(3),
+.rotate .options button:nth-child(4) {
+    font-size: 20px;
+}
+
+.rotate .options button:active {
+    color: white;
+    background: #3A5A7C;
+    border-color: white;
+}
+
+/* ========================================
+   Preview Image Styling
+======================================== */
+.wrapper .preview-img {
+    flex-grow: 1;
+    display: flex;
+    overflow: hidden;
+    margin-left: 25px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.preview-img img {
+    max-width: 500px;
+    max-height: 350px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 3px solid white;
+    border-radius: 8px;
+}
+
+/* ========================================
+   Vignette Overlay Styling
+======================================== */
+.vignette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 8px;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* 👇 This class is added by JS when an image is chosen */
+.preview-img.vignette-active .vignette-overlay {
+    opacity: 1;
+}
+
+/* Vignette intensity adjustment */
+.preview-img.vignette-active .vignette-overlay {
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* ========================================
+   Controls Button Styling
+======================================== */
+.controls button {
+    padding: 12px 22px;
+    font-size: 15px;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    background: rgb(2, 2, 78);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border: 2px solid white;
+}
+
+/* ========================================
+   Reset Filter Button Styling
+======================================== */
+.controls .reset-filter {
+    color: white;
+    border: 2px solid white;
+    background: rgb(122, 6, 6);
+}
+
+.controls .reset-filter:hover {
+    color: #A23E3E;
+    background: white;
+}
+
+/* ========================================
+   Button Hover Effects with Transition
+======================================== */
+.controls .choose-img:hover,
+.controls .save-img:hover,
+.upload-background-to-photo:hover,
+.upload-img-remove-bg:hover,
+.click-to-remove-bg:hover {
+    background: rgb(122, 6, 6);
+    color: white;
+    border-color: white;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+/* ========================================
+   Focus Styles for Buttons and Sliders
+======================================== */
+.controls button:focus,
+.editor-panel button:focus,
+.filter .slider input:focus {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   Click-to-Remove and Upload Background Button Styling
+======================================== */
+.click-to-remove-bg,
+.upload-background-to-photo {
+    background: rgb(2, 2, 78);
+    color: white;
+}
+
+.click-to-remove-bg:hover,
+.upload-background-to-photo:hover {
+    background: rgb(122, 6, 6);
+    opacity: 0.8;
+}
+
+/* ========================================
+   Responsive Styles
+======================================== */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+    .wrapper .preview-img img {
+        max-width: 100%;
+        max-height: 300px;
+    }
+    .editor-panel .filter button {
+        width: 100%;
+    }
+    .controls button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container h2 {
+        font-size: 24px;
+    }
+    .editor-panel .title {
+        font-size: 16px;
+    }
+    .editor-panel button {
+        font-size: 14px;
+    }
+    .preview-img {
+        height: 300px;
+    }
+}
